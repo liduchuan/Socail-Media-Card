@@ -1,16 +1,17 @@
 import '@src/SidePanel.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
-import { Layout } from './component/layout';
+import { Layout } from './layout';
 import { useTabPage } from './hook/useTabPage';
-import { Twitter } from './component/card/twitter';
+import { Twitter } from './card/twitter';
 
 const SidePanel = () => {
   const page = useTabPage();
 
   return (
-    <Layout>
+    <div className="p-4">
+      <h2>Twitter</h2>
       <Twitter page={page} />
-    </Layout>
+    </div>
   );
 };
 
