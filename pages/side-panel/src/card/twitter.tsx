@@ -6,7 +6,7 @@ interface TwitterProps {
 
 const styles = tv({
   slots: {
-    container: 'border border-[#cfd9de] rounded-[16px] w-full overflow-hidden',
+    container: 'border border-[#cfd9de] rounded-[16px] w-full overflow-hidden cursor-pointer',
   },
   variants: {
     twitterCard: {
@@ -21,9 +21,12 @@ const styles = tv({
 })();
 
 export const Twitter = ({ page }: TwitterProps) => {
-  if (!page || !page.twitterCard) {
+  if (!page || !page.twitterCard || !page.site) {
     return null;
   }
+
+  const url = new URL(page.site);
+  const domain = url.hostname;
 
   const summaryLarge = page.twitterCard === 'summary_large_image';
 
@@ -34,18 +37,24 @@ export const Twitter = ({ page }: TwitterProps) => {
 
   const summaryContent = summaryLarge ? null : (
     <div className="size-full flex">
-      <div
-        style={{ background: `url(${page.imageUrl}) no-repeat center center / cover` }}
-        className="size-full flex-[calc(110/408)]"></div>
-      <div className="flex-[calc(200/408)] flex flex-col gap-2">
-        <h2>{page.title}</h2>
-        <p>{page.description}</p>
+      <div style={{ background: `url(${page.imageUrl}) no-repeat center center / cover` }} className="w-[26.96%]"></div>
+      <div className="w-[73.04%]">
+        <div className="flex size-full flex-col p-[12px] justify-center leading-[20px]">
+          <span className="line-clamp-1 text-[#536471] text-[15px]">{domain}</span>
+          <span className="line-clamp-1 text-[#0f1419]">{page.title}</span>
+          <span className="line-clamp-1 text-[#536471]">{page.description}</span>
+        </div>
       </div>
     </div>
   );
 
   return (
-    <div className={styles.container({ twitterCard: page.twitterCard })} style={style}>
+    <div
+      className={styles.container({ twitterCard: page.twitterCard })}
+      style={style}
+      onClick={() => {
+        window.open(page.site, '_blank');
+      }}>
       {summaryContent}
     </div>
   );

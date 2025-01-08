@@ -2,7 +2,13 @@ import { useEffect, useState } from 'react';
 import { useTabUrl } from './useTabUrl';
 
 export const useTabPage = () => {
-  const [page, setPage] = useState<Page>({ title: '', description: '', imageUrl: '', twitterCard: 'summary' });
+  const [page, setPage] = useState<Page>({
+    title: '',
+    description: '',
+    site: '',
+    imageUrl: '',
+    twitterCard: 'summary',
+  });
   const { url, tabId } = useTabUrl();
 
   useEffect(() => {
@@ -20,11 +26,16 @@ export const useTabPage = () => {
             const metaTwitterCard = metas.find(meta => meta.getAttribute('name') === 'twitter:card');
             const twitterCard = metaTwitterCard ? metaTwitterCard.getAttribute('content') : 'summary';
 
+            const description = metas.find(meta => meta.getAttribute('name') === 'description');
+            const descriptionContent = description ? description.getAttribute('content') : '';
+
             return {
               title,
               url: window.location.href,
               imageUrl,
               twitterCard,
+              description: descriptionContent,
+              site: window.location.href,
             };
           },
         })
