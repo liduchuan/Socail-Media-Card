@@ -6,7 +6,7 @@ interface TwitterProps {
 
 const styles = tv({
   slots: {
-    container: 'border border-[#cfd9de] rounded-[16px] w-full overflow-hidden cursor-pointer',
+    container: 'border border-[#cfd9de] rounded-[16px] w-full overflow-hidden cursor-pointer relative',
   },
   variants: {
     twitterCard: {
@@ -48,6 +48,12 @@ export const Twitter = ({ page }: TwitterProps) => {
     </div>
   );
 
+  const largeContent = summaryLarge ? (
+    <div className="bg-[#000000c4] px-[8px] leading-[20px] text-white absolute left-[10px] bottom-[10px] rounded-[4px] line-clamp-1 max-w-[calc(100%-20px)]">
+      {page.title}
+    </div>
+  ) : null;
+
   return (
     <div
       className={styles.container({ twitterCard: page.twitterCard })}
@@ -56,6 +62,7 @@ export const Twitter = ({ page }: TwitterProps) => {
         window.open(page.site, '_blank');
       }}>
       {summaryContent}
+      {largeContent}
     </div>
   );
 };
