@@ -8,7 +8,7 @@ const SidePanel = () => {
   const page = useTabPage();
 
   return (
-    <div className="p-4 max-w-[400px] mx-auto">
+    <div className="p-4 max-w-[600px] mx-auto">
       <h2>Twitter</h2>
       <Twitter page={page} />
     </div>
