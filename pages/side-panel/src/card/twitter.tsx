@@ -25,6 +25,8 @@ export const Twitter = ({ page }: TwitterProps) => {
     return null;
   }
 
+  console.log(page);
+
   const url = new URL(page.site);
   const domain = url.hostname;
 

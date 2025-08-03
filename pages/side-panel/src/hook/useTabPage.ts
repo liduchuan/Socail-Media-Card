@@ -23,9 +23,11 @@ export const useTabPage = () => {
             const title = meta ? meta.getAttribute('content') : document.title;
             const image = metas.find(meta => meta.getAttribute('property') === 'og:image');
             const imageUrl = image ? image.getAttribute('content') : '';
-            const metaTwitterCard = metas.find(meta => meta.getAttribute('name') === 'twitter:card');
+            const metaTwitterCard = metas.find(meta => {
+              const property = meta.getAttribute('property') || meta.getAttribute('name');
+              return property === 'twitter:card';
+            });
             const twitterCard = metaTwitterCard ? metaTwitterCard.getAttribute('content') : 'summary';
-
             const description = metas.find(meta => meta.getAttribute('name') === 'description');
             const descriptionContent = description ? description.getAttribute('content') : '';
 
